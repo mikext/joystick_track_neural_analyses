@@ -14,9 +14,9 @@ P1 = P2(1:L/2+1,:);
 P1(2:end-1,:) = 2*P1(2:end-1,:);
 
 %%
-% Use the maximum value
+% % Use the maximum value
 % [val, idx] = max(P1);
-% feature = val; % Using 1st value
+% % feature = val; % Using 1st value
 % 
 % feature = idx; % Using 1st index
 % P1(bsxfun(@eq, P1, val)) = -Inf;
@@ -47,7 +47,7 @@ P1(2:end-1,:) = 2*P1(2:end-1,:);
 %     Sample_Cov(isnan(Sample_Cov)) = 1e-10;
     [E_Vec,E_Val]=eig(Sample_Cov);
     
-    E_Vec_Pri = E_Vec(:,end-1:end);
+    E_Vec_Pri = E_Vec(:,end);
     proj_tmp = Sample_PCA' * E_Vec_Pri ;
     feature = reshape(proj_tmp,[],1);
 
