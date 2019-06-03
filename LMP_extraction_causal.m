@@ -40,7 +40,7 @@ function [cc_arr, RMSE_arr] = KFlodCV_linearmodel(K, n_pts, before_step, ...
     X_raw, y_raw)
 
 
-    N = n_pts - 1 - before_step;
+    N = n_pts - before_step;
     
     N_slice = floor(N/K);
     Folds_Idx = zeros(N_slice * K, 1);
