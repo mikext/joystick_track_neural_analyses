@@ -1,5 +1,5 @@
 
-function [feature] = feature_extract_paper_method_smo(data)
+function [feature_pca, feature_smo_pca] = feature_extract_paper_method_smo_pca(data)
 % extracted feature use the method mentioned in the paper
 bin_num = 333;
 half_num = 167;
@@ -60,6 +60,39 @@ for k = 1:K
     feature_smo(:,:,k) = mean(feature(:,:,min_pos:max_pos),3);
     
 end
+
+    [h, w, ~]= size(feature_smo);
+%   Using the trainging data to generate the projection matrix
+    Sample_PCA = reshape(feature_smo,h*w,[]);
+    Mean_PCA = mean(Sample_PCA);
+    Sample_PCA= bsxfun(@minus, Sample_PCA, Mean_PCA);
+    Sample_PCA = normc(Sample_PCA);
+%   Obtain Covariance Matrix
+    Sample_Cov=cov(Sample_PCA');
+%     Sample_Cov(isnan(Sample_Cov)) = 1e-10;
+    [E_Vec,E_Val]=eig(Sample_Cov);
+    
+    E_Vec_Pri = E_Vec(:,end-7:end);
+    proj_tmp = Sample_PCA' * E_Vec_Pri ;
+    feature_smo_pca = proj_tmp;
+   
+    
+%   Using the trainging data to generate the projection matrix
+    Sample_PCA = reshape(feature,h*w,[]);
+    Mean_PCA = mean(Sample_PCA);
+    Sample_PCA= bsxfun(@minus, Sample_PCA, Mean_PCA);
+    Sample_PCA = normc(Sample_PCA);
+%   Obtain Covariance Matrix
+    Sample_Cov=cov(Sample_PCA');
+%     Sample_Cov(isnan(Sample_Cov)) = 1e-10;
+    [E_Vec,E_Val]=eig(Sample_Cov);
+    
+    E_Vec_Pri = E_Vec(:,end-7:end);
+    proj_tmp = Sample_PCA' * E_Vec_Pri ;
+    feature_pca = proj_tmp;
+    
+    
+
 
 end
 
