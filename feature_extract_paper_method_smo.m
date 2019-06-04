@@ -1,4 +1,5 @@
-function [feature] = feature_extract_paper_method(data)
+
+function [feature] = feature_extract_paper_method_smo(data)
 % extracted feature use the method mentioned in the paper
 bin_num = 333;
 half_num = 167;
@@ -52,6 +53,13 @@ end
 %     imagesc(squeeze(feature(m,:,:)));
 %     colorbar;  
 % end
+
+for k = 1:K
+    min_pos = max(1, k-4);
+    max_pos = min(K, k+4);
+    feature_smo(:,:,k) = mean(feature(:,:,min_pos:max_pos),3);
+    
+end
 
 end
 
