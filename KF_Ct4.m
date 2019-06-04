@@ -4,7 +4,7 @@ load('../data/cartesian_states.mat');
 load('../data/LMPandPSD.mat');
 %% parameters
 i_sub = 1;
-kk = 2;
+kk = 5;
 LMP_flag = 1;
 PSD_flag = 1;
 smo_flag = 0;
