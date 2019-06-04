@@ -1,6 +1,6 @@
 clear; clc; close all;
 %%
-box_LMPandSPD = cell(4, 1);
+box_LMPandPSD = cell(4, 1);
 subs = ["fp", "gf", "rh", "rr"];
 for ind = 1:4
     sub = char(subs(ind));
@@ -9,5 +9,5 @@ for ind = 1:4
     features = feature_extract_paper_method_smo(data);
     ss = struct('sub', sub, ...
                 'features', features);
-    box_LMPandSPD{ind, 1} = ss;
+    box_LMPandPSD{ind, 1} = ss;
 end
