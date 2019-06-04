@@ -7,7 +7,9 @@ i_sub = 1;
 kk = 2;
 LMP_flag = 1;
 PSD_flag = 1;
-smo_flag = 1;
+smo_flag = 0;
+
+trainPaiV_flag = 1;
 zscore_flag = 0;
 %%
 states_s = cartesian_states{i_sub};
@@ -58,13 +60,19 @@ K = 5;
 [A, Q, C, R] = ...
                 KF_training(train_slices, n_trial, n_chan);
 %% Kalman filter predicting
-states = (val_slices{1}.states)';
-Pai = states(:, 1);
-V = zeros(4, 4);
+if trainPaiV_flag == 0
+    states = (val_slices{1}.states)';
+    Pai = states(:, 1);
+    V = zeros(4, 4);
+else
+    [Pai, V] = KF_Pai_V(n_trial, train_slices);
+end
 %% functions below
 pred_states = ...
             KF_predicting(val_slices, A, Q, C, R, Pai, V);
 %% verify two ground true
+states = (val_slices{1}.states)';
+
 Px_linear_real = result_Px.real;
 Px_linear_pred = result_Px.pred;
 Px_KF_pred = pred_states(1, :);

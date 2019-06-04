@@ -150,17 +150,41 @@ for i_trial = 1:n_trial
 end
 % get R
 R = term_1 ./ term_2;
+%% calculate Pai
+% numerator
+term_1 = zeros(4, 1);
+for i_trial = 1:n_trial
+    states = (train_slices{i_trial}.states)';
+    term_1 = term_1 + states(:, 1);
+end
+% denominator
+term_2 = n_trial;
+% get Pai
+Pai = term_1 ./ term_2;
 
+%% calculate V
+% numerator
+term_1 = zeros(4, 4);
+for i_trial = 1:n_trial
+    states = (train_slices{i_trial}.states)';
+    z_1 = states(:, 1);
+    diff = z_1 - Pai;
+    term_1 = term_1 + diff * diff.';
+end
+% denominator
+term_2 = n_trial;
+% get V
+V = term_1 ./ term_2;
 %% Evaluate model on test set
 states = (test_slices{1}.states)';
 obsers = (test_slices{1}.obsers)';
 n_bin = size(obsers, 2);
 
 pred_states = zeros(4, n_bin);
-pred_states(:, 1) = states(:, 1);
+pred_states(:, 1) = Pai;
 
-mu_0 = states(:, 1);
-sigma_0 = zeros(4, 4);
+mu_0 = Pai;
+sigma_0 = V;
 
 % iterative updates
 
