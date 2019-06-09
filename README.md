@@ -3,8 +3,12 @@
 ### ECE 209 Group Project 
 
 *Xiaotian Wang, Yudi Wang*
+**Related Document**
+- Feature Extraction
+ 1. paper_method.m: the main code to obtained the processed data
+ 2. feature_extract_paper_method_smo_pca.m: the related function to actually process the data
 
-<u>Pipeline</u>
+**Pipeline**
 
 - Feature Extraction based on signal processing
   1. Implement of the feature extraction method mentioned by the paper
