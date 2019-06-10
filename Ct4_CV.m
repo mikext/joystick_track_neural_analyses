@@ -1,5 +1,7 @@
 clear;clc;close all;
 %%
+addpath('Kalman_Filter_helpers');
+addpath('other_helpers');
 load('../data/cartesian_states.mat');
 load('../data/LMPandPSD.mat');
 %% parameters
