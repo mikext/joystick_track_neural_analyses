@@ -3,10 +3,10 @@ clear;clc;close all;
 load('../data/cartesian_states.mat');
 load('../data/LMPandPSD.mat');
 %% parameters
-i_sub = 2;
-LMP_flag = 1;
-PSD_flag = 0;
-smo_flag = 1;
+i_sub = 4;
+LMP_flag = 0;
+PSD_flag = 1;
+smo_flag = 0;
 
 trainPaiV_flag = 1;
 zscore_flag = 0;

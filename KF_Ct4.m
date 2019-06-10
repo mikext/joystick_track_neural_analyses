@@ -4,8 +4,8 @@ load('../data/cartesian_states.mat');
 load('../data/LMPandPSD.mat');
 %% parameters
 i_sub = 1;
-kk = 5;
-LMP_flag = 1;
+kk = 3;
+LMP_flag = 0;
 PSD_flag = 1;
 smo_flag = 0;
 
@@ -89,13 +89,24 @@ plot(Px_KF_pred, 'r');
 plot(Px_linear_pred, 'g');
 hold off;
 %%
+h1 = figure;
+set(h1, 'Position', [200 100 600 300]);
+
 plot(Py_KF_real, '--b'); 
 hold on; 
 plot(Py_KF_pred, 'r'); 
 plot(Py_linear_pred, 'g');
 hold off;
+
+set(gca, 'fontsize', 16, 'fontweight', 'bold')
+xlabel('Time bin', 'FontSize', 16)
 %%
 Rx_linear = corrcoef(Px_linear_real, Px_linear_pred);
 ccx_linear = Rx_linear(1, 2);
 Rx_KF = corrcoef(Px_KF_real, Px_KF_pred);
 ccx_KF = Rx_KF(1, 2);
+
+Ry_linear = corrcoef(Py_linear_real, Py_linear_pred);
+ccy_linear = Ry_linear(1, 2);
+Ry_KF = corrcoef(Py_KF_real, Py_KF_pred);
+ccy_KF = Ry_KF(1, 2);
